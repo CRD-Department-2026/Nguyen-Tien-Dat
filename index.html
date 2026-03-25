@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Nguyễn Tiến Đạt · VSIP | Hồ sơ số NFC</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 10% 20%, rgba(10, 42, 54, 0.95), #051e28);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+            backdrop-filter: blur(2px);
+        }
+
+        /* animated background particles */
+        .bg-shape {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-shape span {
+            position: absolute;
+            background: rgba(18, 94, 110, 0.2);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* main card */
+        .profile-card {
+            max-width: 580px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(0px);
+            border-radius: 56px;
+            overflow: hidden;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.2);
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s;
+            animation: cardAppear 0.7s ease-out;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 40px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes cardAppear {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* language switcher */
+        .lang-switch {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            padding: 5px 10px;
+            display: flex;
+            gap: 8px;
+            border: 1px solid rgba(255,215,0,0.4);
+        }
+        .lang-btn {
+            background: none;
+            border: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 30px;
+            cursor: pointer;
+            color: white;
+            transition: 0.2s;
+        }
+        .lang-btn.active {
+            background: linear-gradient(135deg, #D4AF37, #F5D742);
+            color: #1e2f3a;
+            box-shadow: 0 2px 6px rgba(212,175,55,0.3);
+        }
+        .lang-btn:not(.active):hover {
+            background: rgba(255,215,0,0.3);
+        }
+
+        /* header gradient + avatar (straight bottom) */
+        .card-header {
+            background: linear-gradient(135deg, #0B2B40 0%, #176F7A 100%);
+            padding: 2rem 2rem 1.8rem;
+            text-align: center;
+            position: relative;
+            border-bottom: 2px solid #D4AF37;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            background: #D4AF37;
+            padding: 2px;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            background: #f0f4f8;
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 18px;
+            height: 18px;
+            background: #2ecc71;
+            border-radius: 50%;
+            border: 2px solid white;
+            animation: pulse 1.8s infinite;
+            box-shadow: 0 0 0 2px #D4AF37;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7), 0 0 0 2px #D4AF37; }
+            70% { box-shadow: 0 0 0 8px rgba(46, 204, 113, 0), 0 0 0 2px #D4AF37; }
+            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0), 0 0 0 2px #D4AF37; }
+        }
+
+        .name {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: white;
+            margin-bottom: 0.25rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .title {
+            font-size: 1rem;
+            font-weight: 500;
+            background: linear-gradient(135deg, #D4AF37, #F5D742);
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            margin-top: 0.6rem;
+            color: #1e2f3a;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .department {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.9);
+            margin-top: 0.4rem;
+            font-weight: 500;
+        }
+
+        .vsip-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0,0,0,0.3);
+            padding: 6px 14px;
+            border-radius: 40px;
+            margin-top: 14px;
+            border: 1px solid rgba(212,175,55,0.5);
+        }
+        .vsip-logo img {
+            height: 28px;
+            width: auto;
+            max-width: 80px;
+            object-fit: contain;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+        }
+        .vsip-logo span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #F5D742;
+        }
+
+        /* content area */
+        .card-content {
+            padding: 2rem 1.8rem 2.2rem;
+        }
+
+        /* contact buttons */
+        .action-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.9rem 1.2rem;
+            border-radius: 80px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.25s ease;
+            background: #f8fafd;
+            border: 1px solid #e2edf2;
+            color: #1e2f3a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn i {
+            width: 28px;
+            font-size: 1.3rem;
+            text-align: center;
+            color: #D4AF37;
+        }
+
+        .btn span {
+            flex: 1;
+            text-align: left;
+        }
+
+        .btn:hover {
+            transform: translateX(5px);
+            background: white;
+            border-color: #D4AF37;
+            box-shadow: 0 8px 18px rgba(212,175,55,0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(95deg, #0B2B40, #176F7A);
+            border: none;
+            color: white;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .btn-primary i {
+            color: #F5D742;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 22px rgba(11, 43, 64, 0.3);
+            background: linear-gradient(95deg, #0f3e55, #1d8592);
+        }
+
+        /* info rows */
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #eef3f7;
+            font-size: 0.9rem;
+            color: #2c4b5c;
+        }
+
+        .info-row i {
+            width: 28px;
+            font-size: 1.2rem;
+            color: #D4AF37;
+            margin-top: 2px;
+        }
+
+        .info-row a {
+            color: #176F7A;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-row a:hover {
+            text-decoration: underline;
+            color: #D4AF37;
+        }
+
+        .address-sub {
+            font-size: 0.85rem;
+            color: #5a7a8a;
+            margin-top: 4px;
+            margin-left: 28px;
+            padding-left: 0;
+            border-left: 2px solid #D4AF37;
+            padding-left: 10px;
+        }
+
+        /* social icons */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin: 1.8rem 0 1rem;
+        }
+
+        .social-icon {
+            background: #eff7fa;
+            width: 48px;
+            height: 48px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #176F7A;
+            font-size: 1.5rem;
+            transition: 0.2s;
+            border: 1px solid #cde3ea;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, #D4AF37, #F5D742);
+            color: #1e2f3a;
+            border-color: #D4AF37;
+        }
+
+        /* vCard button */
+        .vcard-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: none;
+            border: 1px solid #cbdde4;
+            padding: 0.8rem;
+            border-radius: 60px;
+            font-weight: 500;
+            color: #0f4b5a;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .vcard-btn i {
+            font-size: 1.1rem;
+            color: #D4AF37;
+        }
+
+        .vcard-btn:hover {
+            background: #eef7fa;
+            border-color: #D4AF37;
+            box-shadow: 0 4px 12px rgba(212,175,55,0.2);
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #7f9aa6;
+            margin-top: 1.6rem;
+            letter-spacing: 0.3px;
+        }
+
+        /* ripple effect */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #fff 10%, transparent 10%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10);
+            opacity: 0;
+            transition: transform 0.5s, opacity 0.6s;
+        }
+        .ripple:active:after {
+            transform: scale(0);
+            opacity: 0.3;
+            transition: 0s;
+        }
+
+        @media (max-width: 480px) {
+            .profile-card { border-radius: 40px; }
+            .card-header { padding: 1.8rem 1.5rem; }
+            .card-content { padding: 1.5rem; }
+            .btn { padding: 0.75rem 1rem; }
+            .lang-switch { top: 12px; right: 12px; }
+            .address-sub { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+<div class="bg-shape" id="bg-shape"></div>
+<div class="profile-card">
+    <!-- Language Switcher -->
+    <div class="lang-switch">
+        <button class="lang-btn active" data-lang="vi">🇻🇳 VI</button>
+        <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+    </div>
+
+    <div class="card-header">
+        <div class="avatar-wrapper">
+            <img class="avatar" id="avatarImg" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Avatar Nguyễn Tiến Đạt">
+            <div class="status-dot"></div>
+        </div>
+        <div class="name" data-key="name">Nguyễn Tiến Đạt</div>
+        <div class="title" data-key="title">Senior Manager</div>
+        <div class="department" data-key="dept">Head of C&R Department</div>
+        <div class="vsip-logo">
+            <img src="vsip-logo.png" alt="VSIP Logo" id="vsipLogo" onerror="this.src='https://via.placeholder.com/80x40?text=VSIP'">
+            <span>VSIP Group</span>
+        </div>
+    </div>
+
+    <div class="card-content">
+        <div class="action-grid">
+            <a href="tel:+84909134413" class="btn ripple">
+                <i class="fas fa-phone-alt"></i>
+                <span data-key="call">+84 909 134 413</span>
+                <i class="fas fa-chevron-right" style="font-size: 0.8rem; opacity: 0.6;"></i>
+            </a>
+            <a href="https://zalo.me/0909134413" class="btn ripple" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                <span data-key="zalo">Nhắn Zalo</span>
+                <i class="fas fa-chevron-right" style="font-size: 0.8rem; opacity: 0.6;"></i>
+            </a>
+            <a href="mailto:dat.nt@VSIP.com.vn" class="btn ripple">
+                <i class="fas fa-envelope"></i>
+                <span data-key="email">dat.nt@VSIP.com.vn</span>
+                <i class="fas fa-chevron-right" style="font-size: 0.8rem; opacity: 0.6;"></i>
+            </a>
+            <a href="https://www.vsip.com.vn/" class="btn btn-primary ripple" target="_blank">
+                <i class="fas fa-globe-asia"></i>
+                <span data-key="website">Khám phá VSIP</span>
+            </a>
+        </div>
+
+        <!-- Thông tin địa chỉ -->
+        <div class="info-row">
+            <i class="fas fa-building"></i>
+            <div>
+                <div data-key="office_address">Tầng 12, Tòa nhà Saigon Marina IFC<br>Số 2 đường Tôn Đức Thắng, Phường Sài Gòn<br>Thành phố Hồ Chí Minh, Việt Nam</div>
+            </div>
+        </div>
+        <div class="info-row">
+            <i class="fas fa-envelope-open-text"></i>
+            <div>
+                <div data-key="mail_address_label" style="font-weight: 600; margin-bottom: 4px;">Thư từ & Giao dịch:</div>
+                <div data-key="mail_address">08 Hữu Nghị, phường Bình Hoà,<br>thành phố Hồ Chí Minh, Việt Nam</div>
+            </div>
+        </div>
+        <div class="info-row">
+            <i class="fas fa-clock"></i>
+            <span data-key="working_hours">Thứ 2 – Thứ 6 | 8:30 – 17:30</span>
+        </div>
+        <div class="info-row">
+            <i class="fas fa-link"></i>
+            <a href="https://www.vsip.com.vn/" target="_blank" data-key="website_link">vsip.com.vn</a>
+        </div>
+
+        <!-- Social links (có thể thay bằng link thật) -->
+        <div class="social-links">
+            <a href="#" class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <!-- Lưu liên hệ vCard -->
+        <button class="vcard-btn ripple" id="saveContactBtn">
+            <i class="fas fa-address-card"></i> <span data-key="save_contact">Lưu vào danh bạ (vCard)</span>
+        </button>
+
+        <div class="footer-note">
+            🔘 <span data-key="footer_note">Chạm thẻ NFC để chia sẻ hồ sơ số · Cập nhật liên tục</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // === Tạo hiệu ứng bong bóng ===
+    function createBubbles() {
+        const container = document.getElementById('bg-shape');
+        const bubbleCount = 20;
+        for (let i = 0; i < bubbleCount; i++) {
+            const bubble = document.createElement('span');
+            const size = Math.random() * 70 + 30;
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            bubble.style.left = Math.random() * 100 + '%';
+            bubble.style.animationDuration = Math.random() * 15 + 12 + 's';
+            bubble.style.animationDelay = Math.random() * 10 + 's';
+            bubble.style.opacity = Math.random() * 0.3 + 0.1;
+            container.appendChild(bubble);
+        }
+    }
+    createBubbles();
+
+    // === Dữ liệu đa ngôn ngữ ===
+    const translations = {
+        vi: {
+            name: "Nguyễn Tiến Đạt",
+            title: "Senior Manager",
+            dept: "Head of C&R Department",
+            call: "+84 909 134 413",
+            zalo: "Nhắn Zalo",
+            email: "dat.nt@VSIP.com.vn",
+            website: "Khám phá VSIP",
+            office_address: "Tầng 12, Tòa nhà Saigon Marina IFC<br>Số 2 đường Tôn Đức Thắng, Phường Sài Gòn<br>Thành phố Hồ Chí Minh, Việt Nam",
+            mail_address_label: "Thư từ & Giao dịch:",
+            mail_address: "08 Hữu Nghị, phường Bình Hoà,<br>thành phố Hồ Chí Minh, Việt Nam",
+            working_hours: "Thứ 2 – Thứ 6 | 8:30 – 17:30",
+            website_link: "vsip.com.vn",
+            save_contact: "Lưu vào danh bạ (vCard)",
+            footer_note: "Chạm thẻ NFC để chia sẻ hồ sơ số · Cập nhật liên tục"
+        },
+        en: {
+            name: "Nguyen Tien Dat",
+            title: "Senior Manager",
+            dept: "Head of C&R Department",
+            call: "+84 909 134 413",
+            zalo: "Chat on Zalo",
+            email: "dat.nt@VSIP.com.vn",
+            website: "Explore VSIP",
+            office_address: "12th floor, Saigon Marina IFC Building<br>2 Ton Duc Thang, Sai Gon Ward,<br>Ho Chi Minh City, Vietnam",
+            mail_address_label: "Postal:",
+            mail_address: "08 Huu Nghi, Binh Hoa ward,<br>Ho Chi Minh city, Vietnam",
+            working_hours: "Monday – Friday | 8:30 AM – 5:30 PM",
+            website_link: "vsip.com.vn",
+            save_contact: "Save to contacts (vCard)",
+            footer_note: "Tap NFC card to share digital profile · Always up-to-date"
+        }
+    };
+
+    // Lấy tất cả phần tử có data-key
+    const elements = document.querySelectorAll('[data-key]');
+    function setLanguage(lang) {
+        elements.forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (translations[lang][key]) {
+                if (el.tagName === 'A' && key === 'website_link') {
+                    el.innerText = translations[lang][key];
+                } else if (el.tagName === 'SPAN' || el.tagName === 'DIV') {
+                    el.innerHTML = translations[lang][key];
+                } else if (el.tagName === 'BUTTON' && key === 'save_contact') {
+                    const span = el.querySelector('span');
+                    if (span) span.innerText = translations[lang][key];
+                } else {
+                    el.innerText = translations[lang][key];
+                }
+            }
+        });
+        // Cập nhật active class cho nút ngôn ngữ
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            if (btn.getAttribute('data-lang') === lang) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    // Gắn sự kiện cho nút chuyển ngôn ngữ
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.getAttribute('data-lang');
+            setLanguage(lang);
+        });
+    });
+
+    // === Tạo và tải vCard với đầy đủ địa chỉ ===
+    function generateVCard() {
+        return `BEGIN:VCARD
+VERSION:3.0
+FN:Nguyễn Tiến Đạt
+ORG:VSIP Group
+TITLE:Senior Manager - Head of C&R Department
+TEL;TYPE=CELL,WORK:+84909134413
+EMAIL;TYPE=WORK:dat.nt@VSIP.com.vn
+URL:https://www.vsip.com.vn/
+ADR;TYPE=WORK:;;Tầng 12, Tòa nhà Saigon Marina IFC, 02 Tôn Đức Thắng, P. Sài Gòn;TP. Hồ Chí Minh;;700000;Vietnam
+ADR;TYPE=POSTAL:;;08 Hữu Nghị, phường Bình Hoà;TP. Hồ Chí Minh;;700000;Vietnam
+NOTE:NFC Business Card - VSIP
+END:VCARD`;
+    }
+
+    const saveBtn = document.getElementById('saveContactBtn');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', function() {
+            const vcardBlob = new Blob([generateVCard()], { type: 'text/vcard' });
+            const url = URL.createObjectURL(vcardBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'nguyen_tien_dat.vcf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            const originalHTML = saveBtn.innerHTML;
+            saveBtn.innerHTML = '<i class="fas fa-check-circle"></i> <span>Đã tạo vCard! / vCard created!</span>';
+            setTimeout(() => {
+                saveBtn.innerHTML = originalHTML;
+            }, 2000);
+        });
+    }
+</script>
+</body>
+</html>
