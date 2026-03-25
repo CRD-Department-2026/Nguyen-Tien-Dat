@@ -120,10 +120,10 @@
             width: 100%;
             height: 100%;
             background-image: url('vsip-logo.png'); /* Đường dẫn logo của bạn */
-            background-size: 200% auto;  /* tăng gấp 3 lần diện tích so với 70% ban đầu */
+            background-size: 200% auto;
             background-repeat: no-repeat;
             background-position: center;
-            opacity: 0.25;               /* tăng nhẹ để rõ hơn */
+            opacity: 0.25;
             pointer-events: none;
             z-index: 0;
         }
@@ -465,19 +465,24 @@
             </a>
         </div>
 
+        <!-- Địa chỉ trụ sở (đã tách label) -->
         <div class="info-row">
             <i class="fas fa-building"></i>
             <div>
-                <div data-key="office_address">Trụ sở: Tầng 12, Tòa nhà SaiGon Marina IFC<br>Số 2 đường Tôn Đức Thắng, Phường Sài Gòn<br>Thành phố Hồ Chí Minh, Việt Nam</div>
+                <div style="font-weight: 600; margin-bottom: 4px;" data-key="office_label">Trụ sở:</div>
+                <div data-key="office_address">Tầng 12, Tòa nhà SaiGon Marina IFC<br>Số 2 đường Tôn Đức Thắng, Phường Sài Gòn<br>Thành phố Hồ Chí Minh, Việt Nam</div>
             </div>
         </div>
+
+        <!-- Địa chỉ thư từ & giao dịch -->
         <div class="info-row">
             <i class="fas fa-envelope-open-text"></i>
             <div>
-                <div data-key="mail_address_label" style="font-weight: 600; margin-bottom: 4px;">Thư từ & Giao dịch:</div>
+                <div style="font-weight: 600; margin-bottom: 4px;" data-key="mail_address_label">Thư từ & Giao dịch:</div>
                 <div data-key="mail_address">08 Hữu Nghị, phường Bình Hoà,<br>thành phố Hồ Chí Minh, Việt Nam</div>
             </div>
         </div>
+
         <div class="info-row">
             <i class="fas fa-clock"></i>
             <span data-key="working_hours">Thứ 2 – Thứ 6 | 8:30 – 17:30</span>
@@ -525,7 +530,8 @@
             zalo: "Nhắn Zalo",
             email: "dat.nt@VSIP.com.vn",
             website: "Khám phá VSIP",
-            office_address: "Trụ sở: Tầng 12, Tòa nhà SaiGon Marina IFC<br>Số 2 đường Tôn Đức Thắng, Phường Sài Gòn<br>Thành phố Hồ Chí Minh, Việt Nam",
+            office_label: "Trụ sở:",
+            office_address: "Tầng 12, Tòa nhà SaiGon Marina IFC<br>Số 2 đường Tôn Đức Thắng, Phường Sài Gòn<br>Thành phố Hồ Chí Minh, Việt Nam",
             mail_address_label: "Thư từ & Giao dịch:",
             mail_address: "08 Hữu Nghị, phường Bình Hoà,<br>thành phố Hồ Chí Minh, Việt Nam",
             working_hours: "Thứ 2 – Thứ 6 | 8:30 – 17:30",
@@ -541,7 +547,8 @@
             zalo: "Chat on Zalo",
             email: "dat.nt@VSIP.com.vn",
             website: "Explore VSIP",
-            office_address: "Head Office: 12th floor, SaiGon Marina IFC Building<br>2 Ton Duc Thang, Sai Gon Ward,<br>Ho Chi Minh City, Vietnam",
+            office_label: "Head Office:",
+            office_address: "12th floor, SaiGon Marina IFC Building<br>2 Ton Duc Thang, Sai Gon Ward,<br>Ho Chi Minh City, Vietnam",
             mail_address_label: "Postal:",
             mail_address: "08 Huu Nghi, Binh Hoa ward,<br>Ho Chi Minh city, Vietnam",
             working_hours: "Monday – Friday | 8:30 AM – 5:30 PM",
