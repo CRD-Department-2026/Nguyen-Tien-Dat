@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Nguyễn Tiến Đạt · VSIP | Hồ sơ số NFC</title>
-    <!-- Google Fonts & Font Awesome -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -26,7 +25,6 @@
             backdrop-filter: blur(2px);
         }
 
-        /* animated background particles */
         .bg-shape {
             position: fixed;
             width: 100%;
@@ -49,12 +47,10 @@
             100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
         }
 
-        /* main card */
         .profile-card {
             max-width: 580px;
             width: 100%;
             background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(0px);
             border-radius: 56px;
             overflow: hidden;
             box-shadow: 0 30px 50px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.2);
@@ -74,12 +70,11 @@
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        /* language switcher */
         .lang-switch {
             position: absolute;
             top: 18px;
             right: 20px;
-            z-index: 10;
+            z-index: 20;
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(8px);
             border-radius: 40px;
@@ -108,13 +103,33 @@
             background: rgba(255,215,0,0.3);
         }
 
-        /* header gradient + avatar (straight bottom) */
         .card-header {
             background: linear-gradient(135deg, #0B2B40 0%, #176F7A 100%);
             padding: 2rem 2rem 1.8rem;
             text-align: center;
             position: relative;
             border-bottom: 2px solid #D4AF37;
+            overflow: hidden;
+        }
+        /* Logo watermark lớn gấp 3 */
+        .card-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('vsip-logo.png'); /* Đường dẫn logo của bạn */
+            background-size: 200% auto;  /* tăng gấp 3 lần diện tích so với 70% ban đầu */
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.25;               /* tăng nhẹ để rõ hơn */
+            pointer-events: none;
+            z-index: 0;
+        }
+        .card-header > * {
+            position: relative;
+            z-index: 1;
         }
 
         .avatar-wrapper {
@@ -186,34 +201,34 @@
         }
 
         .vsip-logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            display: inline-block;
+            width: auto;
             background: rgba(0,0,0,0.3);
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 40px;
             margin-top: 14px;
             border: 1px solid rgba(212,175,55,0.5);
+            backdrop-filter: blur(4px);
+            text-align: center;
         }
-        .vsip-logo img {
-            height: 28px;
-            width: auto;
-            max-width: 80px;
-            object-fit: contain;
-            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
-        }
-        .vsip-logo span {
+        .company-name {
             font-size: 0.8rem;
-            font-weight: 500;
+            font-weight: 700;
             color: #F5D742;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+        .member-text {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.9);
+            margin-top: 2px;
         }
 
-        /* content area */
         .card-content {
             padding: 2rem 1.8rem 2.2rem;
         }
 
-        /* contact buttons */
         .action-grid {
             display: flex;
             flex-direction: column;
@@ -275,7 +290,6 @@
             background: linear-gradient(95deg, #0f3e55, #1d8592);
         }
 
-        /* info rows */
         .info-row {
             display: flex;
             align-items: flex-start;
@@ -304,17 +318,6 @@
             color: #D4AF37;
         }
 
-        .address-sub {
-            font-size: 0.85rem;
-            color: #5a7a8a;
-            margin-top: 4px;
-            margin-left: 28px;
-            padding-left: 0;
-            border-left: 2px solid #D4AF37;
-            padding-left: 10px;
-        }
-
-        /* social icons */
         .social-links {
             display: flex;
             justify-content: center;
@@ -344,7 +347,6 @@
             border-color: #D4AF37;
         }
 
-        /* vCard button */
         .vcard-btn {
             display: flex;
             align-items: center;
@@ -382,7 +384,6 @@
             letter-spacing: 0.3px;
         }
 
-        /* ripple effect */
         .ripple {
             position: relative;
             overflow: hidden;
@@ -415,14 +416,12 @@
             .card-content { padding: 1.5rem; }
             .btn { padding: 0.75rem 1rem; }
             .lang-switch { top: 12px; right: 12px; }
-            .address-sub { margin-left: 0; }
         }
     </style>
 </head>
 <body>
 <div class="bg-shape" id="bg-shape"></div>
 <div class="profile-card">
-    <!-- Language Switcher -->
     <div class="lang-switch">
         <button class="lang-btn active" data-lang="vi">🇻🇳 VI</button>
         <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
@@ -434,11 +433,12 @@
             <div class="status-dot"></div>
         </div>
         <div class="name" data-key="name">Nguyễn Tiến Đạt</div>
-        <div class="title" data-key="title">Senior Manager</div>
-        <div class="department" data-key="dept">Head of C&R Department</div>
+        <div class="title" data-key="title">Giám Đốc Phát Triển</div>
+        <div class="department" data-key="dept">Phòng Phát Triển Đô Thị & Dịch Vụ</div>
+        
         <div class="vsip-logo">
-            <img src="vsip-logo.png" alt="VSIP Logo" id="vsipLogo" onerror="this.src='https://via.placeholder.com/80x40?text=VSIP'">
-            <span>VSIP Group</span>
+            <div class="company-name">CÔNG TY LD TNHH KCN<br>VIỆT NAM - SINGAPORE</div>
+            <div class="member-text">Thành viên của VSIP Group</div>
         </div>
     </div>
 
@@ -465,11 +465,10 @@
             </a>
         </div>
 
-        <!-- Thông tin địa chỉ -->
         <div class="info-row">
             <i class="fas fa-building"></i>
             <div>
-                <div data-key="office_address">Tầng 12, Tòa nhà Saigon Marina IFC<br>Số 2 đường Tôn Đức Thắng, Phường Sài Gòn<br>Thành phố Hồ Chí Minh, Việt Nam</div>
+                <div data-key="office_address">Trụ sở: Tầng 12, Tòa nhà SaiGon Marina IFC<br>Số 2 đường Tôn Đức Thắng, Phường Sài Gòn<br>Thành phố Hồ Chí Minh, Việt Nam</div>
             </div>
         </div>
         <div class="info-row">
@@ -483,19 +482,13 @@
             <i class="fas fa-clock"></i>
             <span data-key="working_hours">Thứ 2 – Thứ 6 | 8:30 – 17:30</span>
         </div>
-        <div class="info-row">
-            <i class="fas fa-link"></i>
-            <a href="https://www.vsip.com.vn/" target="_blank" data-key="website_link">vsip.com.vn</a>
-        </div>
 
-        <!-- Social links (có thể thay bằng link thật) -->
         <div class="social-links">
             <a href="#" class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>
             <a href="#" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
             <a href="#" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
         </div>
 
-        <!-- Lưu liên hệ vCard -->
         <button class="vcard-btn ripple" id="saveContactBtn">
             <i class="fas fa-address-card"></i> <span data-key="save_contact">Lưu vào danh bạ (vCard)</span>
         </button>
@@ -507,11 +500,9 @@
 </div>
 
 <script>
-    // === Tạo hiệu ứng bong bóng ===
     function createBubbles() {
         const container = document.getElementById('bg-shape');
-        const bubbleCount = 20;
-        for (let i = 0; i < bubbleCount; i++) {
+        for (let i = 0; i < 20; i++) {
             const bubble = document.createElement('span');
             const size = Math.random() * 70 + 30;
             bubble.style.width = size + 'px';
@@ -525,17 +516,16 @@
     }
     createBubbles();
 
-    // === Dữ liệu đa ngôn ngữ ===
     const translations = {
         vi: {
             name: "Nguyễn Tiến Đạt",
-            title: "Senior Manager",
-            dept: "Head of C&R Department",
+            title: "Giám Đốc Phát Triển",
+            dept: "Phòng Phát Triển Đô Thị & Dịch Vụ",
             call: "+84 909 134 413",
             zalo: "Nhắn Zalo",
             email: "dat.nt@VSIP.com.vn",
             website: "Khám phá VSIP",
-            office_address: "Tầng 12, Tòa nhà Saigon Marina IFC<br>Số 2 đường Tôn Đức Thắng, Phường Sài Gòn<br>Thành phố Hồ Chí Minh, Việt Nam",
+            office_address: "Trụ sở: Tầng 12, Tòa nhà SaiGon Marina IFC<br>Số 2 đường Tôn Đức Thắng, Phường Sài Gòn<br>Thành phố Hồ Chí Minh, Việt Nam",
             mail_address_label: "Thư từ & Giao dịch:",
             mail_address: "08 Hữu Nghị, phường Bình Hoà,<br>thành phố Hồ Chí Minh, Việt Nam",
             working_hours: "Thứ 2 – Thứ 6 | 8:30 – 17:30",
@@ -545,13 +535,13 @@
         },
         en: {
             name: "Nguyen Tien Dat",
-            title: "Senior Manager",
-            dept: "Head of C&R Department",
+            title: "Director",
+            dept: "Commercial & Residential Department",
             call: "+84 909 134 413",
             zalo: "Chat on Zalo",
             email: "dat.nt@VSIP.com.vn",
             website: "Explore VSIP",
-            office_address: "12th floor, Saigon Marina IFC Building<br>2 Ton Duc Thang, Sai Gon Ward,<br>Ho Chi Minh City, Vietnam",
+            office_address: "Head Office: 12th floor, SaiGon Marina IFC Building<br>2 Ton Duc Thang, Sai Gon Ward,<br>Ho Chi Minh City, Vietnam",
             mail_address_label: "Postal:",
             mail_address: "08 Huu Nghi, Binh Hoa ward,<br>Ho Chi Minh city, Vietnam",
             working_hours: "Monday – Friday | 8:30 AM – 5:30 PM",
@@ -561,7 +551,6 @@
         }
     };
 
-    // Lấy tất cả phần tử có data-key
     const elements = document.querySelectorAll('[data-key]');
     function setLanguage(lang) {
         elements.forEach(el => {
@@ -579,7 +568,6 @@
                 }
             }
         });
-        // Cập nhật active class cho nút ngôn ngữ
         document.querySelectorAll('.lang-btn').forEach(btn => {
             if (btn.getAttribute('data-lang') === lang) {
                 btn.classList.add('active');
@@ -589,7 +577,6 @@
         });
     }
 
-    // Gắn sự kiện cho nút chuyển ngôn ngữ
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const lang = btn.getAttribute('data-lang');
@@ -597,17 +584,16 @@
         });
     });
 
-    // === Tạo và tải vCard với đầy đủ địa chỉ ===
     function generateVCard() {
         return `BEGIN:VCARD
 VERSION:3.0
 FN:Nguyễn Tiến Đạt
-ORG:Mr. Nguyễn Tiến Đạt
-TITLE:Senior Manager - Head of C&R Department
+ORG:VSIP Group
+TITLE:Director - C&R Department
 TEL;TYPE=CELL,WORK:+84909134413
 EMAIL;TYPE=WORK:dat.nt@VSIP.com.vn
 URL:https://www.vsip.com.vn/
-ADR;TYPE=WORK:;;Tầng 12, Tòa nhà Saigon Marina IFC, 02 Tôn Đức Thắng, P. Sài Gòn;TP. Hồ Chí Minh;;700000;Vietnam
+ADR;TYPE=WORK:;;Trụ Sở: Tầng 12, Tòa nhà Saigon Marina IFC, 02 Tôn Đức Thắng, P. Sài Gòn;TP. Hồ Chí Minh;;700000;Vietnam
 ADR;TYPE=POSTAL:;;08 Hữu Nghị, phường Bình Hoà;TP. Hồ Chí Minh;;700000;Vietnam
 NOTE:NFC Business Card - VSIP
 END:VCARD`;
