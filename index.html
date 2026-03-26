@@ -103,30 +103,85 @@
             background: rgba(255,215,0,0.3);
         }
 
+        /* ========== HEADER VỚI GRADIENT VÀ SÓNG (HIỂN THỊ RÕ) ========== */
         .card-header {
-            background: linear-gradient(135deg, #0B2B40 0%, #176F7A 100%);
+            background: linear-gradient(145deg, #4A8CF0, #2F6FE4, #1E4ED8, #3B5EDC);
+            background-size: 300% 300%;
+            animation: gradientMove 8s ease infinite;
             padding: 2rem 2rem 1.8rem;
             text-align: center;
             position: relative;
             border-bottom: 2px solid #D4AF37;
             overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.2), 0 8px 20px rgba(0,0,0,0.2);
         }
-        /* Logo watermark lớn gấp 3 */
-        .card-header::before {
-            content: "";
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* WAVES - HIỂN THỊ RÕ RÀNG */
+        .wave-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .wave-bg .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background-repeat: repeat-x;
+            background-size: 50% 100%;
+            will-change: transform;
+        }
+        /* Sóng vàng kim (nổi bật) */
+        .wave-bg .wave-1 {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='rgba(212,175,55,0.5)' d='M0,192L48,197.3C96,203,192,213,288,208C384,203,480,181,576,170.7C672,160,768,160,864,176C960,192,1056,224,1152,229.3C1248,235,1344,213,1392,202.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'/%3E%3C/svg%3E");
+            animation: waveMove 18s linear infinite;
+            opacity: 0.7;
+        }
+        /* Sóng trắng ánh sáng */
+        .wave-bg .wave-2 {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='rgba(255,255,255,0.4)' d='M0,128L48,144C96,160,192,192,288,197.3C384,203,480,181,576,165.3C672,149,768,139,864,154.7C960,171,1056,213,1152,213.3C1248,213,1344,171,1392,149.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'/%3E%3C/svg%3E");
+            animation: waveMoveReverse 24s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes waveMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @keyframes waveMoveReverse {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Logo watermark (nhẹ hơn để sóng nổi) */
+        .card-header .watermark-logo {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('vsip-logo.png'); /* Đường dẫn logo của bạn */
+            background-image: url('vsip-logo.png');
             background-size: 200% auto;
             background-repeat: no-repeat;
             background-position: center;
-            opacity: 0.25;
+            opacity: 0.6;
             pointer-events: none;
             z-index: 0;
         }
+
+        /* Đảm bảo nội dung header nằm trên hiệu ứng */
         .card-header > * {
             position: relative;
             z-index: 1;
@@ -198,6 +253,7 @@
             color: rgba(255,255,255,0.9);
             margin-top: 0.4rem;
             font-weight: 500;
+            min-height: 1.6rem;
         }
 
         .vsip-logo {
@@ -225,6 +281,7 @@
             margin-top: 2px;
         }
 
+        /* ========== GIỮ NGUYÊN CÁC PHẦN CÒN LẠI ========== */
         .card-content {
             padding: 2rem 1.8rem 2.2rem;
         }
@@ -428,6 +485,12 @@
     </div>
 
     <div class="card-header">
+        <div class="watermark-logo"></div>
+        <div class="wave-bg">
+            <div class="wave wave-1"></div>
+            <div class="wave wave-2"></div>
+        </div>
+
         <div class="avatar-wrapper">
             <img class="avatar" id="avatarImg" src="tien_dat.jpg" alt="Avatar Nguyễn Tiến Đạt">
             <div class="status-dot"></div>
@@ -437,8 +500,8 @@
         <div class="department" data-key="dept">Khối Phát Triển Đô Thị & Dịch Vụ</div>
         
         <div class="vsip-logo">
-            <div class="company-name">CÔNG TY LD TNHH KHU CÔNG NGHIỆP<br>VIỆT NAM - SINGAPORE</div>
-            <div class="member-text">Thành viên của VSIP Group</div>
+            <div class="company-name" data-key="company_name">CÔNG TY LD TNHH KHU CÔNG NGHIỆP<br>VIỆT NAM - SINGAPORE</div>
+            <div class="member-text" data-key="member_text">Thành viên của VSIP Group</div>
         </div>
     </div>
 
@@ -465,7 +528,6 @@
             </a>
         </div>
 
-        <!-- Địa chỉ trụ sở (đã tách label) -->
         <div class="info-row">
             <i class="fas fa-building"></i>
             <div>
@@ -474,7 +536,6 @@
             </div>
         </div>
 
-        <!-- Địa chỉ thư từ & giao dịch -->
         <div class="info-row">
             <i class="fas fa-envelope-open-text"></i>
             <div>
@@ -537,11 +598,14 @@
             working_hours: "Thứ 2 – Thứ 6 | 8:30 – 17:30",
             website_link: "vsip.com.vn",
             save_contact: "Lưu vào danh bạ (vCard)",
-            footer_note: "Chạm thẻ NFC để chia sẻ hồ sơ số · Cập nhật liên tục"
+            footer_note: "Chạm thẻ NFC để chia sẻ hồ sơ số · Cập nhật liên tục",
+            company_name: "CÔNG TY LD TNHH KHU CÔNG NGHIỆP<br>VIỆT NAM - SINGAPORE",
+            member_text: "Thành viên của VSIP Group"
         },
         en: {
             name: "Nguyen Tien Dat",
-            title: "Head of Commercial & Residential Department",
+            title: "Head of Commercial and Residential Department",
+            dept: "&nbsp;",
             call: "+84 909 134 413",
             zalo: "Chat on Zalo",
             email: "dat.nt@vsip.com.vn",
@@ -553,7 +617,9 @@
             working_hours: "Monday – Friday | 8:30 AM – 5:30 PM",
             website_link: "vsip.com.vn",
             save_contact: "Save to contacts (vCard)",
-            footer_note: "Tap NFC card to share digital profile · Always up-to-date"
+            footer_note: "Tap NFC card to share digital profile · Always up-to-date",
+            company_name: "Vietnam – Singapore<br>Industrial Park Development Co., Ltd.",
+            member_text: "Member of VSIP Group"
         }
     };
 
@@ -561,7 +627,7 @@
     function setLanguage(lang) {
         elements.forEach(el => {
             const key = el.getAttribute('data-key');
-            if (translations[lang][key]) {
+            if (translations[lang][key] !== undefined) {
                 if (el.tagName === 'A' && key === 'website_link') {
                     el.innerText = translations[lang][key];
                 } else if (el.tagName === 'SPAN' || el.tagName === 'DIV') {
@@ -595,7 +661,7 @@
 VERSION:3.0
 FN:Nguyễn Tiến Đạt
 ORG:Mr. Nguyễn Tiến Đạt
-TITLE: Head of C&R Department
+TITLE:Development Director
 TEL;TYPE=CELL,WORK:+84909134413
 EMAIL;TYPE=WORK:dat.nt@vsip.com.vn
 URL:https://www.vsip.com.vn/
@@ -625,6 +691,8 @@ END:VCARD`;
             }, 2000);
         });
     }
+
+    setLanguage('vi');
 </script>
 </body>
 </html>
